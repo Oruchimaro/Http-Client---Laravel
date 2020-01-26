@@ -8,6 +8,18 @@ class MarketService
 {
     use ConsumeExternalServices;
 
+    /** The URL to send the request 
+     *  @var string
+     */
+    protected $baseUri;
+
+
+    /**  */
+    public function __construct()
+    {
+        $this->baseUri = config('services.market.base_uri');
+    }
+
     /**
      * Resolve the elements to send when authorizing the request
      * @return void

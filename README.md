@@ -85,3 +85,21 @@
 
     Any other Service that we need to integrate with our app can have a Seprate
     file and the basic layout will be like this one.
+
+### 6. configure project to use external service
+    we will add these keys to .env file
+
+    MARKET_BASE_URI=
+    MARKET_CLIENT_ID=
+    MARKET_CLIENT_SECRET=
+    MARKET_PASSWORD_CLIENT_ID=
+    MARKET_PASSWORD_CLIENT_SECRET=
+
+    Then in config/services.php file we will egt these values for later useage.
+    we will add a new service called Market and add them, after that we will be
+    able to use these anywhere in the project.
+
+    'market' => [...],
+
+    Now we need the MarketService class to use this base_uri,so we can add that
+    to a constructor in it.
