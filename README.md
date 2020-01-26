@@ -65,3 +65,23 @@
 
     The class that uses this trait may have  method to decode the response and
     check if the errors are present on the response.
+
+
+### 5.Create a service to use the trait .
+    here want to make a service to use the trait to consume an external service.
+    app/Services/MarketService.php 
+
+    now this file may containt the methods that specified in trait as optional
+    methods.
+
+    the first one to resolveAuthorization will take the parameters and refrence
+    the actual ones for any change to take effect 
+
+    the second one decodeResponse is responsible for finding what tyoe of
+    response the service is returning(yaml, hsin,...)
+
+    the third one will proccess the errors sent from the service if there are
+    any
+
+    Any other Service that we need to integrate with our app can have a Seprate
+    file and the basic layout will be like this one.
