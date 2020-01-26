@@ -32,3 +32,36 @@
     As we are using external API for sign up/in we dont need to register users
     in our app, we can disable them with passing the options to the route file.
     look at auth facade for more info.
+
+### 4.Making an http request
+    We are going to create a trait to be used by any controller or class, to
+    enable it to send any http request of anytype with any query param, to any
+    service .This is cool!!!
+
+    First add a new file to the directory within app,
+    app/Traits/ConsumeExternalServices.php
+
+    in this trait we are going to have a single method
+    this method will create a instance of guzzle Client, and gets some
+    parameters
+    like method, requestUri, queryParams, formParams,headers that will be used 
+    to make the request.
+
+    in this trait we will use a attribute called baseUri, this uri comes from
+    the class, model or controler that is using this trait, if it is not present
+    the guzzle will automatically calculate the request from the url that we
+    specify  sending there.if it is present all the urls request will be
+    calculated from there.
+
+
+    then we can have this trait handle or resolve authorization , so in any
+    class that is using this trait we will have a resolveAuthorization() method,
+    and pass them the queryParams, formParams and headers to handle it.
+
+    then after sending request we can get a response from the service that will
+    be stored in response variable.
+
+    and then return the response.
+
+    The class that uses this trait may have  method to decode the response and
+    check if the errors are present on the response.
