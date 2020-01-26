@@ -27,3 +27,8 @@
     user table compatible for it.instead of using the email and password we are
     storing tokens that we authenticate fro our API and other related stuff like
     expire time or grant type.
+
+### 3. Disable Register
+    As we are using external API for sign up/in we dont need to register users
+    in our app, we can disable them with passing the options to the route file.
+    look at auth facade for more info.

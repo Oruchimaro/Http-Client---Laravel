@@ -11,10 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'WelcomeController@show')->name('welcome');
 
-Auth::routes();
+Auth::routes(['register' => false, 'reset' => false]); //disable register and reset routes
 
 Route::get('/home', 'HomeController@index')->name('home');
