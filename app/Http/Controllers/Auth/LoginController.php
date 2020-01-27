@@ -9,6 +9,7 @@ use App\Services\MarketService;
 use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -84,8 +85,10 @@ class LoginController extends Controller
             $userData = $this->marketService->getUserInformation();
 
             $user = $this->registerOrUpdateUser($userData, $tokenData);
-            dd($user);
-            return;
+
+            $this->loginUser($user);
+
+            return redirect()->intended('home');
         }
 
         //if we didnt get the code it means user canceled
@@ -112,5 +115,17 @@ class LoginController extends Controller
                 'token_expires_at' => $tokenData->token_expires_at
             ]
         );
+    }
+
+
+    /**
+     * Create a user session in the HttpClient
+     * @return void
+     */
+    public function loginUser(User $user, $remember = true)
+    {
+        Auth::login($user, $remember);
+
+        session()->regenerate();
     }
 }
