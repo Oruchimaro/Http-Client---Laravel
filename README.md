@@ -17,6 +17,11 @@
 
 
 ## Documents 
+### 0.lets work with API
+    in our api we will create 2 users(register).
+
+    First one can be used to create a OAuth client.
+    Second one will have a Personal Access Token.
 ### 1.Guzzle
     we are using guzzlehttp package to send http requests to external API.
     you can find the guzzle documentation at "http://docs.guzzlephp.org/en/stable/"
@@ -103,3 +108,24 @@
 
     Now we need the MarketService class to use this base_uri,so we can add that
     to a constructor in it.
+
+### 7.Modify header for request
+    Here we can get a Personal access-token from our api  for our second user, then in MarketService
+    resolveAuthorization method we attach it to headers.
+    we will add this token to authorization header key/value as it is shown.
+    later we will automate this proccess, but for now this will do.
+
+    we attach the token to header with this
+
+    ```PHP 
+        $headers['Authorization'] = 'Bearer access-token';
+    ```
+
+    Now we are able to authorize a request by sending this access-token with
+    request headers.
+
+
+
+
+
+
