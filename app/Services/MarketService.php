@@ -21,4 +21,14 @@ class MarketService
     {
         $this->baseUri = config('services.market.base_uri');
     }
+
+
+    /**
+     * Obtain the list of products from API
+     * @request stdClass
+     */
+    public function getProducts()
+    {
+        return $this->makeRequest('GET', '/products');
+    }
 }

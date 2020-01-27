@@ -35,7 +35,7 @@ trait ConsumeExternalServices
 
 
         if (method_exists($this, 'decodeResponse')) {
-            $this->decodeResponse($response); //from class that uses this
+            $response = $this->decodeResponse($response); //from class that uses this
         }
 
 

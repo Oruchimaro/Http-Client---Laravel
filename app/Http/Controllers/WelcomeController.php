@@ -6,8 +6,16 @@ use Illuminate\Http\Request;
 
 class WelcomeController extends Controller
 {
+    /**
+     * Show the app dashboard/landing page
+     */
     public function show()
     {
-        return view('welcome');
+        $products = $this->marketService->getProducts();
+
+        return view('welcome')
+            ->with([
+                'products' => $products
+            ]);
     }
 }
