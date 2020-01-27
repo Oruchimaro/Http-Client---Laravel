@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Services\MarketAuthenticationService;
 use App\Services\MarketService;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 
@@ -82,7 +83,8 @@ class LoginController extends Controller
 
             $userData = $this->marketService->getUserInformation();
 
-            dd($userData);
+            $user = $this->registerOrUpdateUser($userData, $tokenData);
+            dd($user);
             return;
         }
 
@@ -90,5 +92,25 @@ class LoginController extends Controller
         return redirect()
             ->route('login')
             ->withErrors(['You canceled the authorization proccess !!!']);
+    }
+
+
+    /**
+     * Create or update a user using information from the API
+     * @return App\User
+     */
+    public function registerOrUpdateUser($userData, $tokenData)
+    {
+        return User::updateOrCreate(
+            [
+                'service_id' => $userData->identifier
+            ],
+            [
+                'grant_type' => $tokenData->grant_type,
+                'access_token' => $tokenData->access_token,
+                'refresh_token' => $tokenData->refresh_token,
+                'token_expires_at' => $tokenData->token_expires_at
+            ]
+        );
     }
 }
