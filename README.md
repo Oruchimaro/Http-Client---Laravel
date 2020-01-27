@@ -124,7 +124,34 @@
     Now we are able to authorize a request by sending this access-token with
     request headers.
 
+### 8.Now we want to automate getting the access token
+    First signin to the API with first user that you created.go to MyClients
+    section and copy the credentials of the client that you created 
+    and fill in the MARKET_CLIENT_ID and MARKET_CLIENT_SECRET fields in
+    env file.
 
+    now that we have these we are able to send a request to obtain a vaid access
+    token for this client credentials.
+
+    So create a service MarketAuthenticationService 
+    and add the getClientCredentialsToken() method to it to perfoem a request.
+    this method will get a freash access token and returnit 
+
+    now use this service(class) in AuthorizesMarketRequests trait.
+    now if we test the project we can see that every thing works as before and 
+    the proccess of getting an access token for client requests are automatic.
+
+    Now the problem is that we are obtaining a fresh access-token with every
+    request, not so good !!!. we want to use the toke untill it expires.
+
+    If we go to services/MarketAuthenticationService , there we can add methods
+    to store the access token in a session and use it for all requests untill it
+    expires.
+
+    then in getClientCredentialsToken method check to see if there is a token in
+    session, if not create one and store it in session.
+
+    the methods are storeValidToken() and existingValidToken().
 
 
 
