@@ -28,13 +28,16 @@
             <div class="row">
                 @foreach ($products as $product)
                 <div class="col-4">
-                    <div class="card">
-                        <img src="{{ $product->picture }}" alt="product-image" class="card-img-top">
-                        <div class="card-body">
-                            <div class="card-title">{{ $product->title }}</div>
-                            <div class="card-text">{{ $product->details }}</div>
+                    <a href="{{ route('products.show', ['title' =>$product->title, 'id' => $product->identifier]) }}">
+                        <div class="card">
+                            <img src="{{ $product->picture }}" alt="product-image" class="card-img-top">
+                            <div class="card-body">
+                                <div class="card-title">{{ $product->title }}({{ $product->stock }})
+                                </div>
+                                <div class="card-text">{{ $product->details }}</div>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
                 @endforeach
             </div>
