@@ -12,10 +12,12 @@ class WelcomeController extends Controller
     public function show()
     {
         $products = $this->marketService->getProducts();
+        $categories = $this->marketService->getCategories();
 
         return view('welcome')
             ->with([
-                'products' => $products
+                'products' => $products,
+                'categories' => $categories
             ]);
     }
 }

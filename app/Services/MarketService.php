@@ -29,6 +29,16 @@ class MarketService
      */
     public function getProducts()
     {
-        return $this->makeRequest('GET', '/products');
+        return $this->makeRequest('GET', 'products');
+    }
+
+
+    /**
+     * Obtain the list of categories from API
+     * @request stdClass
+     */
+    public function getCategories()
+    {
+        return $this->makeRequest('GET', 'categories');
     }
 }
