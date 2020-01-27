@@ -91,4 +91,22 @@ class MarketAuthenticationService
 
         return false;
     }
+
+
+    /**
+     * Generate the URL to obtain user authorization
+     * @return string
+     */
+    public function resolveAuthorizationUrl()
+    {
+        $query = http_build_query([
+            'client_id' => $this->clientId,
+            'redirect_uri' => route('authorization'),
+            'response_type' => 'code',
+            'scope' => 'purchase-product manage-products manage-account read-general'
+        ]);
+
+
+        return "{$this->baseUri}oauth/authorize?{$query}";
+    }
 }

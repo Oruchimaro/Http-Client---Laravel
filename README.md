@@ -154,5 +154,11 @@
     the methods are storeValidToken() and existingValidToken().
 
 
+### 9.generating the URL to enable the login button with the API
+    In MarketAuthenticationService add a new method resolveAuthorizationUrl() to
+    build query params to be attached to url, because when you click a link it
+    will be a get request to url.
 
+    then we create a route for authorize and then use the method that we bulid
+    in login controller .
 
