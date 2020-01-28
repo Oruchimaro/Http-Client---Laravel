@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use App\Services\MarketAuthenticationService;
 use App\Services\MarketService;
 use App\User;
+use GuzzleHttp\Exception\ClientException;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -103,7 +104,7 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Http\JsonResponse
      *
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws \GuzzleHttp\Exception\ClientException
      */
     public function login(Request $request)
     {
@@ -128,10 +129,16 @@ class LoginController extends Controller
             $this->loginUser($user, $request->has('remember'));
 
             return redirect()->intended('home');
-        } catch (\Exception $e) {
-            $this->incrementLoginAttempts($request);
+        } catch (ClientException $e) {
+            $message = $e->getResponse()->getBody();
 
-            return $this->sendFailedLoginResponse($request);
+            if (\Str::contains($message, 'invalid_credentials')) {
+                $this->incrementLoginAttempts($request);
+
+                return $this->sendFailedLoginResponse($request);
+            }
+
+            throw $e;
         }
     }
 
