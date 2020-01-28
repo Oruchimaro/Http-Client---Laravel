@@ -162,3 +162,7 @@
     then we create a route for authorize and then use the method that we bulid
     in login controller .
 
+### 10.Anotther way to obtain access token with user credentials
+    So here we copy the login default login method from laravel and
+    modify it to our need.this will be used so when user enters his email and
+    password we directly create the session for our user.
