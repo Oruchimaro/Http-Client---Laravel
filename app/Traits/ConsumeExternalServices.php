@@ -10,7 +10,7 @@ trait ConsumeExternalServices
      * Send a request to any service
      * @return stdClass/string
      */
-    public function makeRequest($method, $requestUrl, $queryParams = [], $formParams = [], $headers = [])
+    public function makeRequest($method, $requestUrl, $queryParams = [], $formParams = [], $headers = [], $hasFile = false)
     {
 
         $client = new Client([
@@ -23,10 +23,23 @@ trait ConsumeExternalServices
             $this->resolveAuthorization($queryParams, $formParams, $headers); //from class that uses this
         }
 
+        $bodyType = 'form_params';
+
+        if ($hasFile) {
+            $bodyType = 'multipart';
+
+            $multipart = [];
+
+            //as multipart has diffrent body structure than form params we reformat it here
+            foreach ($formParams as $name => $contents) {
+                $multipart[] = ['name' => $name, 'contents' => $contents];
+            }
+        }
+
 
         $response = $client->request($method, $requestUrl, [
             'query' => $queryParams,
-            'form_params' => $formParams,
+            $bodyType => $hasFile ? $multipart : $formParams,
             'headers' => $headers
         ]);
 
