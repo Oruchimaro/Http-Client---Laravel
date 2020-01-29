@@ -73,6 +73,8 @@ class ProductsController extends Controller
 
         $productData = $this->marketService->publishProduct($request->user()->service_id, $productData);
 
+        $this->marketService->setProductCategory($productData->identifier, $request->category);
+
         return redirect()
             ->route('products.show', [
                 'title' => $productData->title,

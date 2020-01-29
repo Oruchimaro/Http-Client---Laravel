@@ -86,4 +86,13 @@ class MarketService
             $hasFile = true
         );
     }
+
+
+    public function setProductCategory($productId, $categoryId)
+    {
+        return $this->makeRequest(
+            'PUT',
+            "products/{$productId}/categories/{$categoryId}"
+        );
+    }
 }
