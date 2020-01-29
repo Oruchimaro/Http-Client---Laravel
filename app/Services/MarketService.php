@@ -69,4 +69,21 @@ class MarketService
     {
         return $this->makeRequest('GET', 'users/me');
     }
+
+
+    /**
+     * Publish a product on the API
+     * @return stdClass
+     */
+    public function publishProduct($sellerId, $productData)
+    {
+        return $this->makeRequest(
+            'POST',
+            "sellers/{$sellerId}/products",
+            [],
+            $productData,
+            [],
+            $hasFile = true
+        );
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\MarketService;
+use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
@@ -56,7 +57,27 @@ class ProductsController extends Controller
      * Create the product on the AP
      * @return \Illuminate\Http\Response
      */
-    public function publishProduct()
+    public function publishProduct(Request $request)
     {
+        $rules = [
+            'title' => 'required',
+            'details' => 'required',
+            'stock' => 'required|min:1',
+            'picture' => 'required|image',
+            'category' => 'required'
+        ];
+
+        $productData = $this->validate($request, $rules);
+
+        $productData['picture'] = fopen($request->picture->path(), 'r');
+
+        $productData = $this->marketService->publishProduct($request->user()->service_id, $productData);
+
+        return redirect()
+            ->route('products.show', [
+                'title' => $productData->title,
+                'id' => $productData->identifier
+            ])
+            ->with('success', ['Product created successfully !']);
     }
 }
