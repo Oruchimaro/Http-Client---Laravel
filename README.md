@@ -1,5 +1,5 @@
 ## What is this ?
-    this is a simple projject for testing consuming http client APIs .
+    this is a simple project for testing consuming http client APIs .
     We are using "https://laravelapi.juandmegon.com/" as a source for data and 
     Oauth provider.
 
