@@ -34,14 +34,6 @@ class ProductsController extends Controller
 
 
     /**
-     * Enable to purchase a product from the API
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function purchaseProduct()
-    {
-    }
-
-    /**
      * Show the form to create a product on the API
      * @return \Illuminate\Contracts\Support\Renderable
      */
@@ -85,5 +77,22 @@ class ProductsController extends Controller
                 'id' => $productData->identifier
             ])
             ->with('success', ['Product created successfully !']);
+    }
+
+
+    /**
+     * Enable to purchase a product from the API
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function purchaseProduct(Request $request, $title, $id)
+    {
+        $this->marketService->purchaseProduct($id, $request->user()->service_id, 1);
+
+        return redirect()
+            ->route('products.show', [
+                'title' => $title,
+                'id' => $id
+            ])
+            ->with('success', ['Product Purchased Successfully !!']);
     }
 }

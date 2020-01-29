@@ -114,4 +114,19 @@ class MarketService
             $hasFile = isset($productData['picture'])
         );
     }
+
+
+    /**
+     * Allows to purchase a product
+     * @return stdClass
+     */
+    public function purchaseProduct($productId, $buyerId, $quantity)
+    {
+        return $this->makeRequest(
+            'POST',
+            "products/{$productId}/buyers/{$buyerId}/transactions",
+            [],
+            ['quantity' => $quantity]
+        );
+    }
 }
