@@ -129,4 +129,25 @@ class MarketService
             ['quantity' => $quantity]
         );
     }
+
+
+    /**
+     * Obtain the list of purchases 
+     * @return stdClass
+     */
+    public function getPurchases($buyerId)
+    {
+        return $this->makeRequest('GET', "buyers/{$buyerId}/products");
+    }
+
+
+
+    /**
+     * Obtain the list of published assets 
+     * @return stdClass
+     */
+    public function getPublications($sellerId)
+    {
+        return $this->makeRequest('GET', "sellers/{$sellerId}/products");
+    }
 }
